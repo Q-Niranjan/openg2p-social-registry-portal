@@ -21,10 +21,12 @@ export default function LoginBoxContent({
   handleLoginSubmit
 }: LoginBoxContentProps) {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-white p-5 box-border">
-      <div className="flex flex-col md:flex-row w-[95%] md:w-[90%] md:max-w-[1100px]">
-        {/* Left Section */}
+    <div className="w-full flex justify-center items-center min-h-screen bg-white p-5 box-border border ">
+      <div className="flex flex-col md:flex-row w-[95%] md:w-[90%] md:max-w-[1100px]  rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)]
+ overflow-hidden">
+        
 
+        {/* Left Section */}
         <div className="flex flex-col justify-center items-center flex-1 bg-[#082246] text-white font-light p-[30px] relative">
 
           <Image src={welcomeImg} alt="Welcome" width={200} height={200}
@@ -43,104 +45,108 @@ export default function LoginBoxContent({
         </div>
 
         {/* Right Section */}
-        <div className="flex justify-center items-center p-5 flex-[1.2]">
+        <div className="w-full max-w-[600px] flex justify-center items-center p-5 flex-[1.2]">
 
-          <div className="w-full max-w-[400px] bg-white p-5">
+          <form onSubmit={handleLoginSubmit} className="w-[75%]">
+
+            {/* Logo */}
             <div className="flex justify-center mb-6">
               <Image src={cursorLogo} alt="OpenG2P Logo" width={70} height={70} />
             </div>
 
-            <form onSubmit={handleLoginSubmit}>
-              <div className="flex justify-center w-full mb-[10px]">
-                <h2 className="text-[20px] font-bold mb-[10px] text-center">Log in to Your Account</h2>
+            {/* Title */}
+            <div className="flex justify-center w-full mb-4">
+              <h2 className="text-xl font-bold text-center">Log in to Your Account</h2>
+            </div>
 
-              </div>
+            {/* Email Input */}
+            <div className="mb-4">
+              <label htmlFor="login" className="block text-sm font-medium mb-2 text-gray-800">
+                {t("Email or Phone")}
+              </label>
+              <input
+                type="text"
+                placeholder={t("Enter email or phone")}
+                name="login"
+                id="login"
+                className="w-full px-4 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
 
-
-              {/* Email Input */}
-              <div className="mb-4">
-                <label htmlFor="login" className="block text-sm font-medium mb-2 text-gray-800">
-                  {t("Email or Phone")}
+            {/* Password Input */}
+            <div className="mb-4">
+              <div className="flex justify-between items-center mb-2">
+                <label htmlFor="password" className="text-sm font-medium text-gray-800">
+                  {t("Password")}
                 </label>
-                <input
-                  type="text"
-                  placeholder={t("Enter email or phone")}
-                  name="login"
-                  id="login"
-                  className="w-full px-4 py-2 text-sm border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+                <Link href="/en/resetpassword" className="text-xs text-blue-600 hover:underline">
+                  {t("Reset Password")}
+                </Link>
               </div>
+              <input
+                type="password"
+                placeholder={t("Enter password")}
+                name="password"
+                id="password"
+                className="w-full px-4 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
 
-              {/* Password Input */}
-              <div className="mb-4">
-                <div className="flex justify-between items-center mb-2">
-                  <label htmlFor="password" className="text-sm font-medium text-gray-800">
-                    {t("Password")}
-                  </label>
-                  <Link href="/en/resetpassword" className="text-xs text-blue-600 hover:underline">
-                    {t("Reset Password")}
-                  </Link>
-                </div>
-                <input
-                  type="password"
-                  placeholder={t("Enter password")}
-                  name="password"
-                  id="password"
-                  className="w-full px-4 py-2 text-sm border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
+            {/* Login Button */}
+            <div className="mt-4">
+              <button
+                type="submit"
+                className="w-full py-2 px-4 bg-[#f07b1b] text-white font-bold rounded-full hover:bg-[#d96a18] transition duration-300"
+              >
+                {t("Login")}
+              </button>
+            </div>
 
-              {/* Login Button */}
-              <div className="mt-4">
-                <button
-                  type="submit"
-                  className="w-full py-2 px-4 bg-[#f07b1b] text-white font-bold rounded-full hover:bg-[#d96a18] transition duration-300"
+            {/* OR Separator */}
+            <div className="flex items-center my-4 text-gray-400 font-semibold text-sm">
+              <span className="flex-1 border-t border-gray-300"></span>
+              <span className="px-2">{t("OR")}</span>
+              <span className="flex-1 border-t border-gray-300"></span>
+            </div>
+
+            {/* Social Login */}
+            <div className="flex flex-col gap-2 mt-5">
+              {loginProviders?.map((provider) => (
+                <div
+                  key={`provider-${provider.id}`}
+                  className="flex items-center justify-center w-full bg-[#f4f5f9] border border-[#cfcfcf] rounded-[20px] hover:bg-[#e0e4f0] transition-colors"
                 >
-                  {t("Login")}
-                </button>
-              </div>
-
-              {/* OR Separator */}
-              <div className="flex items-center my-4 text-gray-300 font-semibold text-sm">
-                <span className="flex-1 border-t border-gray-300"></span>
-                <span className="px-2">{t("OR")}</span>
-                <span className="flex-1 border-t border-gray-300"></span>
-              </div>
-
-              {/* Social Login Providers */}
-              <div className="flex flex-col gap-[10px] mt-[20px]">
-                {loginProviders?.map((provider) => (
-                  <div
-                    key={`provider-${provider.id}`}
-                    className="flex items-center justify-center w-full mb-3 bg-[#f4f5f9] border border-[#cfcfcf] rounded-[20px] hover:bg-[#e0e4f0] transition-colors"
+                  <a
+                    href={prefixBaseApiPath(
+                      `/auth/getLoginProviderRedirect/${provider.id}?redirect_uri=${prefixBasePath("/")}`
+                    )}
+                    className="w-full"
                   >
-                    <a
-                      href={prefixBaseApiPath(
-                        `/auth/getLoginProviderRedirect/${provider.id}?redirect_uri=${prefixBasePath("/")}`
-                      )}
-                      className="w-full"
+                    <Button
+                      startIcon={
+                        <Avatar
+                          src={provider.displayIconUrl}
+                          className="w-[15px] h-[15px] object-contain rounded-full mr-2"
+                        />
+                      }
+                      style={{
+                        color: "black",
+                        justifyContent: "center",
+                        textTransform: "none",
+                        width: "100%",
+                      }}
+                      className="w-full py-2 px-4 rounded-[20px]"
                     >
-                      <Button
-                        startIcon={
-                          <Avatar
-                            src={provider.displayIconUrl}
-                            className="w-[15px] h-[15px] object-contain rounded-full mr-[10px]"
-                          />
-                        }
-                        style={{ color: "black", justifyContent: "center", textTransform: "none", width: "100%" }}
-                        className="w-full py-2 px-4 rounded-[20px]"
-                      >
-                        {provider.displayName}
-                      </Button>
-                    </a>
-                  </div>
-                ))}
-              </div>
+                      {provider.displayName}
+                    </Button>
+                  </a>
+                </div>
+              ))}
+            </div>
+
+          </form>
 
 
-
-            </form>
-          </div>
         </div>
       </div>
     </div>
